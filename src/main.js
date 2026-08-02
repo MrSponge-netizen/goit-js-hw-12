@@ -77,7 +77,7 @@ const images = data.hits;
     }
 
     checkIsThereMoreToLoad()
-    hideLoader()
+    
 
 }
 catch(err){
@@ -86,20 +86,20 @@ console.error('Failed to render gallery:', err);
       title: 'Error',
       message: 'Failed to create gallery. Please try again.',
     });
-   hideLoader()
+   
+}
+hideLoader()
+
 }
 
-
-}
-
-loadmoreButton.addEventListener('click', evt => {
+loadmoreButton.addEventListener('click', async (evt) => {
   evt.preventDefault();
 
   
   current_page += 1;
-
+hideLoadMoreButton()
   showLoader();
-   fetchData(savedUserInput);
+  await fetchData(savedUserInput);
 
   let cardHeight = document.querySelector('.gallery-image').getBoundingClientRect().height;
  
@@ -111,7 +111,7 @@ scrollGalerry(cardHeight);
 
 function checkIsThereMoreToLoad(){
   const currentlyLoaded =  current_page * 15;
-  if(currentlyLoaded >= totalHits && images.length !== 0) {
+  if(currentlyLoaded >= totalHits && totalHits != 0) {
     
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",
@@ -124,6 +124,10 @@ function checkIsThereMoreToLoad(){
 }
 
 function scrollGalerry(cardHeight){
-  window.scrollBy( 0, cardHeight *2);
+  window.scrollBy( {
+  top: cardHeight *2,
+  left: 0,
+  behavior: 'smooth'
+});
 console.log("cardHeight" + cardHeight);
 }
