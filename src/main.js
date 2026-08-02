@@ -111,7 +111,7 @@ scrollGalerry(cardHeight);
 
 function checkIsThereMoreToLoad(){
   const currentlyLoaded =  current_page * 15;
-  if(currentlyLoaded >= totalHits && totalHits != 0) {
+  if(currentlyLoaded >= totalHits || totalHits == 0) {
     
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",
