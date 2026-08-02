@@ -95,7 +95,7 @@ loadmoreButton.addEventListener('click', evt => {
   current_page += 1;
 
   showLoader();
-  await fetchData(savedUserInput);
+   fetchData(savedUserInput);
 
   let cardHeight = document.querySelector('.gallery-image').getBoundingClientRect().height;
  
