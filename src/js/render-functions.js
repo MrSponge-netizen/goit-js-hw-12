@@ -52,12 +52,12 @@ export function createGallery(images) {
     //  img.setAttribute('datasource', largeImageURL);
 
     img.dataset.source = largeImageURL;
-
+    link.appendChild(img);
     link.appendChild(likes_);
     link.appendChild(views_);
     link.appendChild(comments_);
     link.appendChild(downloads_);
-    link.appendChild(img);
+    
 
     li.appendChild(link);
     docFrag.appendChild(li);
@@ -91,8 +91,3 @@ export function showLoadMoreButton(){
 export function hideLoadMoreButton(){
   loadmoreButton.style.display = "none";}
 
-
-export function scrollGalerry(cardHeight){
-  window.scrollBy( 0, cardHeight *2);
-console.log("cardHeight" + cardHeight);
-}

@@ -1,4 +1,4 @@
-import { createGallery, clearGallery, showLoader, hideLoader, hideLoadMoreButton, showLoadMoreButton, scrollGalerry} from "./js/render-functions";
+import { createGallery, clearGallery, showLoader, hideLoader, hideLoadMoreButton, showLoadMoreButton} from "./js/render-functions";
 import getImagesByQuery from "./js/pixabay-api";
 
 import iziToast from "izitoast";
@@ -33,6 +33,7 @@ form.addEventListener('submit', async (evt)  => {
   savedUserInput = userInput;
   current_page = 1;
 
+  hideLoadMoreButton()
    showLoader();
     clearGallery();
 
@@ -42,11 +43,14 @@ form.addEventListener('submit', async (evt)  => {
   
   console.log(userInput);
   form.reset();
+
 });
 
 async function fetchData(userInput) {
 
 try{
+  
+
  const data = await getImagesByQuery(userInput, current_page)
 
 const images = data.hits;
@@ -99,7 +103,7 @@ loadmoreButton.addEventListener('click', evt => {
 
   let cardHeight = document.querySelector('.gallery-image').getBoundingClientRect().height;
  
-scrollGalerry(200);
+scrollGalerry(cardHeight);
   
 
 
@@ -107,7 +111,7 @@ scrollGalerry(200);
 
 function checkIsThereMoreToLoad(){
   const currentlyLoaded =  current_page * 15;
-  if(currentlyLoaded >= totalHits) {
+  if(currentlyLoaded >= totalHits && images.length !== 0) {
     
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",
@@ -117,4 +121,9 @@ function checkIsThereMoreToLoad(){
     hideLoadMoreButton();}
   else showLoadMoreButton();
 
+}
+
+function scrollGalerry(cardHeight){
+  window.scrollBy( 0, cardHeight *2);
+console.log("cardHeight" + cardHeight);
 }
